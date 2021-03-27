@@ -15,7 +15,7 @@ class ChooseInitialLocationViewController: UIViewController, UISearchBarDelegate
 
     
     let weatherController = WeatherController()
-    var lcoationDelegate: LocationDelegate?
+    var locationDelegate: LocationDelegate?
     var weatherData: WeatherData?
     
     
@@ -26,11 +26,16 @@ class ChooseInitialLocationViewController: UIViewController, UISearchBarDelegate
     }
     
      override func viewWillDisappear(_ animated: Bool) {
-        lcoationDelegate?.locationWasUpdated(with: weatherData!)
+        locationDelegate?.locationWasUpdated(with: weatherData!)
     }
     
     @IBOutlet weak var searchBar: UISearchBar!
     
+    
+    func setDefaultLocation(city: String) {
+        let userDefaults = UserDefaults.standard
+        userDefaults.setValue(city, forKey: "city")
+    }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
     
@@ -41,8 +46,10 @@ class ChooseInitialLocationViewController: UIViewController, UISearchBarDelegate
             do {
                 let weather = try result.get()
                 self.weatherData = weather
+                self.setDefaultLocation(city: weather.name)
+                
                     DispatchQueue.main.async {
-                        self.lcoationDelegate?.locationWasUpdated(with: weather)
+                        self.locationDelegate?.locationWasUpdated(with: weather)
                         self.dismiss(animated: true, completion: nil)
                     }
                 

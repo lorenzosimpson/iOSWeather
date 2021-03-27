@@ -8,6 +8,7 @@
 import UIKit
 
 class MainViewController: UIViewController, LocationDelegate {
+    
     func locationWasUpdated(with weatherData: WeatherData) {
         self.weatherData = weatherData
     }
@@ -21,15 +22,29 @@ class MainViewController: UIViewController, LocationDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if weatherData == nil {
+        let defaultCity = UserDefaults.standard.value(forKey: "city")
+        if defaultCity == nil {
             performSegue(withIdentifier: "ShowChooseCitySegue", sender: self)
+        } else {
+            guard let cityName = UserDefaults.standard.value(forKey: "city") else { return }
+            weatherController.fetchWeatherByCity(for: cityName as! String) { (result) in
+                do {
+                    let weather = try result.get()
+                    DispatchQueue.main.async {
+                        self.locationWasUpdated(with: weather)
+                    }
+                    
+                } catch {
+                    print("Error getting weather for default location")
+                }
+            }
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowChooseCitySegue" {
             if let locationVC = segue.destination as? ChooseInitialLocationViewController {
-                locationVC.lcoationDelegate = self
+                locationVC.locationDelegate = self
             }
         }
     }
@@ -45,8 +60,9 @@ class MainViewController: UIViewController, LocationDelegate {
         cityLabel.text = weatherData.name
         countryLabel.text = "United States"
         dateLabel.text = "Mar 27, 2021"
-        temperatureLabel.text = String(weatherData.main.temp)
-        print(weatherData)
+        //9/5(K - 273) + 32
+        temperatureLabel.text = String(format: "%.0f", ((9/5) * (weatherData.main.temp - 273) + 32))
+        
         let weatherDescriptions = weatherData.weather[0].main.lowercased()
             if weatherDescriptions.contains("clouds") {
                 weatherImageView.image = UIImage(systemName: "cloud")
@@ -65,7 +81,7 @@ class MainViewController: UIViewController, LocationDelegate {
     @IBOutlet weak var countryLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var weatherImageView: UIImageView!
-    
     @IBOutlet weak var temperatureLabel: UILabel!
     
+    let weatherController = WeatherController()
 }
