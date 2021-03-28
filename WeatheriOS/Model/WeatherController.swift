@@ -18,6 +18,7 @@ enum NetworkError: Error {
 class WeatherController {
     
     var weather: WeatherData?
+    private var urlComponents = URLComponents(string: "https://api.openweathermap.org/data/2.5/weather")!
     
     var apiKey: String {
         var keys: NSDictionary?
@@ -44,7 +45,7 @@ class WeatherController {
         cityQueries.append(URLQueryItem(name: "appId", value: apiKey))
         zipQueries.append(URLQueryItem(name: "appId", value: apiKey))
         
-        var urlComponents = URLComponents(string: "https://api.openweathermap.org/data/2.5/weather")!
+        
         urlComponents.queryItems = city != nil ? cityQueries : zipQueries
         let url = urlComponents.url!
 
@@ -65,7 +66,7 @@ class WeatherController {
                 completion(.failure(.noData))
                 return
             }
-            print(data)
+          
             do {
                 let decoder = JSONDecoder()
                 let cityWeather = try decoder.decode(WeatherData.self, from: data)
@@ -79,6 +80,50 @@ class WeatherController {
             }
         }
         task.resume()
+    }
+    
+    
+    func fetchWeatherById(cityId: Int, completion: @escaping (Result<WeatherData, NetworkError>) -> Void) {
+        let idQueries = [URLQueryItem(name: "id", value: String(cityId)),
+                         URLQueryItem(name: "appId", value: apiKey)
+        ]
+        urlComponents.queryItems = idQueries
+        
+        let url = urlComponents.url!
+        
+        var request = URLRequest(url: url)
+        
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let error = error {
+                print("Error fetching city weather, \(error)")
+                completion(.failure(.other))
+                return
+            }
+            if let response = response as? HTTPURLResponse, response.statusCode == 404 {
+                print("City not found")
+                completion(.failure(.cityNotFound))
+                return
+            }
+            guard let data = data else {
+                print("No data")
+                completion(.failure(.noData))
+                return
+            }
+          
+            do {
+                let decoder = JSONDecoder()
+                let cityWeather = try decoder.decode(WeatherData.self, from: data)
+                self.weather = cityWeather
+                print(cityWeather)
+                completion(.success(cityWeather))
+                
+            } catch {
+                print("Error decoding json, \(error)")
+                completion(.failure(.failedDecode))
+            }
+        }
+        task.resume()
+        
     }
     
     func formatTodayDate() -> String? {

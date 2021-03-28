@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Main View Controller-->
+        <!--Current Weather View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="WeatheriOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="CurrentWeatherViewController" customModule="WeatheriOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -130,24 +130,24 @@
             </objects>
             <point key="canvasLocation" x="947.82608695652186" y="88.392857142857139"/>
         </scene>
-        <!--Choose Initial Location View Controller-->
+        <!--Search View Controller-->
         <scene sceneID="QI2-Oo-6hQ">
             <objects>
-                <viewController id="abn-cV-Pf2" customClass="ChooseInitialLocationViewController" customModule="WeatheriOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="abn-cV-Pf2" customClass="SearchViewController" customModule="WeatheriOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="drD-zB-S58">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="City" translatesAutoresizingMaskIntoConstraints="NO" id="frQ-gd-5kV">
-                                <rect key="frame" x="20" y="244" width="374" height="56"/>
+                                <rect key="frame" x="20" y="144" width="374" height="56"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="374" id="fy7-E4-aqa"/>
                                 </constraints>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose City" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jk2-wu-ygE">
-                                <rect key="frame" x="20" y="200" width="178" height="36"/>
-                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="30"/>
+                                <rect key="frame" x="20" y="100" width="178" height="36"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -156,9 +156,10 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Iyg-z0-Lg5" firstAttribute="trailing" secondItem="frQ-gd-5kV" secondAttribute="trailing" constant="20" id="9ox-Hl-WlX"/>
+                            <constraint firstItem="Iyg-z0-Lg5" firstAttribute="trailing" secondItem="Jk2-wu-ygE" secondAttribute="trailing" constant="216" id="CAb-Qb-XBD"/>
                             <constraint firstItem="Jk2-wu-ygE" firstAttribute="leading" secondItem="Iyg-z0-Lg5" secondAttribute="leading" constant="20" id="PjA-Q6-dmC"/>
                             <constraint firstItem="frQ-gd-5kV" firstAttribute="leading" secondItem="Iyg-z0-Lg5" secondAttribute="leading" constant="20" id="TIX-cF-umC"/>
-                            <constraint firstItem="Jk2-wu-ygE" firstAttribute="top" secondItem="Iyg-z0-Lg5" secondAttribute="top" constant="200" id="aTb-c6-naO"/>
+                            <constraint firstItem="Jk2-wu-ygE" firstAttribute="top" secondItem="Iyg-z0-Lg5" secondAttribute="top" constant="100" id="aTb-c6-naO"/>
                             <constraint firstItem="frQ-gd-5kV" firstAttribute="top" secondItem="Jk2-wu-ygE" secondAttribute="bottom" constant="8" id="s2u-YF-Ujh"/>
                         </constraints>
                     </view>

@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		ED6BAF772610FA270098195C /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6BAF762610FA270098195C /* Util.swift */; };
+		ED6BAF7D261125AA0098195C /* cities.json in Resources */ = {isa = PBXBuildFile; fileRef = ED6BAF7C261125AA0098195C /* cities.json */; };
+		ED6BAF8126112B430098195C /* CityCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6BAF8026112B430098195C /* CityCode.swift */; };
 		EDCFCFE8260F7592008DE9AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDCFCFE7260F7592008DE9AD /* SceneDelegate.swift */; };
-		EDCFCFEA260F7592008DE9AD /* ChooseInitialLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDCFCFE9260F7592008DE9AD /* ChooseInitialLocationViewController.swift */; };
+		EDCFCFEA260F7592008DE9AD /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDCFCFE9260F7592008DE9AD /* SearchViewController.swift */; };
 		EDCFCFED260F7592008DE9AD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDCFCFEB260F7592008DE9AD /* Main.storyboard */; };
 		EDCFCFEF260F7596008DE9AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDCFCFEE260F7596008DE9AD /* Assets.xcassets */; };
 		EDCFCFF2260F7596008DE9AD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDCFCFF0260F7596008DE9AD /* LaunchScreen.storyboard */; };
@@ -18,16 +20,18 @@
 		EDCFD002260F75D9008DE9AD /* CitiesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDCFD001260F75D9008DE9AD /* CitiesCollectionViewController.swift */; };
 		EDCFD005260F75E1008DE9AD /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDCFD004260F75E1008DE9AD /* City.swift */; };
 		EDCFD008260F75E6008DE9AD /* WeatherController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDCFD007260F75E6008DE9AD /* WeatherController.swift */; };
-		EDCFD00B260F75EB008DE9AD /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDCFD00A260F75EB008DE9AD /* MainViewController.swift */; };
+		EDCFD00B260F75EB008DE9AD /* CurrentWeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDCFD00A260F75EB008DE9AD /* CurrentWeatherViewController.swift */; };
 		EDCFD00E260F75F1008DE9AD /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDCFD00D260F75F1008DE9AD /* WeatherData.swift */; };
 		EDCFD011260F75F5008DE9AD /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = EDCFD010260F75F5008DE9AD /* Keys.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		ED6BAF762610FA270098195C /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Util.swift; path = WeatheriOS/Util.swift; sourceTree = SOURCE_ROOT; };
+		ED6BAF7C261125AA0098195C /* cities.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cities.json; sourceTree = "<group>"; };
+		ED6BAF8026112B430098195C /* CityCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityCode.swift; sourceTree = "<group>"; };
 		EDCFCFE2260F7592008DE9AD /* WeatheriOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatheriOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDCFCFE7260F7592008DE9AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		EDCFCFE9260F7592008DE9AD /* ChooseInitialLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseInitialLocationViewController.swift; sourceTree = "<group>"; };
+		EDCFCFE9260F7592008DE9AD /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		EDCFCFEC260F7592008DE9AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EDCFCFEE260F7596008DE9AD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EDCFCFF1260F7596008DE9AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -37,7 +41,7 @@
 		EDCFD001260F75D9008DE9AD /* CitiesCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CitiesCollectionViewController.swift; sourceTree = "<group>"; };
 		EDCFD004260F75E1008DE9AD /* City.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		EDCFD007260F75E6008DE9AD /* WeatherController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherController.swift; sourceTree = "<group>"; };
-		EDCFD00A260F75EB008DE9AD /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		EDCFD00A260F75EB008DE9AD /* CurrentWeatherViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentWeatherViewController.swift; sourceTree = "<group>"; };
 		EDCFD00D260F75F1008DE9AD /* WeatherData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		EDCFD010260F75F5008DE9AD /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -90,8 +94,8 @@
 			isa = PBXGroup;
 			children = (
 				EDCFD001260F75D9008DE9AD /* CitiesCollectionViewController.swift */,
-				EDCFCFE9260F7592008DE9AD /* ChooseInitialLocationViewController.swift */,
-				EDCFD00A260F75EB008DE9AD /* MainViewController.swift */,
+				EDCFCFE9260F7592008DE9AD /* SearchViewController.swift */,
+				EDCFD00A260F75EB008DE9AD /* CurrentWeatherViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -99,7 +103,9 @@
 		EDCFD038260FDBBA008DE9AD /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				ED6BAF8026112B430098195C /* CityCode.swift */,
 				ED6BAF762610FA270098195C /* Util.swift */,
+				ED6BAF7C261125AA0098195C /* cities.json */,
 				EDCFD007260F75E6008DE9AD /* WeatherController.swift */,
 				EDCFD00D260F75F1008DE9AD /* WeatherData.swift */,
 				EDCFD004260F75E1008DE9AD /* City.swift */,
@@ -181,6 +187,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EDCFD011260F75F5008DE9AD /* Keys.plist in Resources */,
+				ED6BAF7D261125AA0098195C /* cities.json in Resources */,
 				EDCFCFF2260F7596008DE9AD /* LaunchScreen.storyboard in Resources */,
 				EDCFCFEF260F7596008DE9AD /* Assets.xcassets in Resources */,
 				EDCFCFED260F7592008DE9AD /* Main.storyboard in Resources */,
@@ -197,13 +204,14 @@
 				EDCFCFFC260F75BC008DE9AD /* AppDelegate.swift in Sources */,
 				EDCFD002260F75D9008DE9AD /* CitiesCollectionViewController.swift in Sources */,
 				EDCFD005260F75E1008DE9AD /* City.swift in Sources */,
-				EDCFCFEA260F7592008DE9AD /* ChooseInitialLocationViewController.swift in Sources */,
+				EDCFCFEA260F7592008DE9AD /* SearchViewController.swift in Sources */,
 				EDCFCFE8260F7592008DE9AD /* SceneDelegate.swift in Sources */,
 				ED6BAF772610FA270098195C /* Util.swift in Sources */,
 				EDCFD008260F75E6008DE9AD /* WeatherController.swift in Sources */,
 				EDCFCFFF260F75D4008DE9AD /* CityCollectionViewCell.swift in Sources */,
 				EDCFD00E260F75F1008DE9AD /* WeatherData.swift in Sources */,
-				EDCFD00B260F75EB008DE9AD /* MainViewController.swift in Sources */,
+				ED6BAF8126112B430098195C /* CityCode.swift in Sources */,
+				EDCFD00B260F75EB008DE9AD /* CurrentWeatherViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
