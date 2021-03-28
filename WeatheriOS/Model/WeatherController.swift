@@ -28,12 +28,26 @@ class WeatherController {
         return ""
     }
    
-    func fetchWeatherByCity(for city: String, completion: @escaping (Result<WeatherData, NetworkError>) -> Void) {
-        let queries = [URLQueryItem(name: "q", value: city), URLQueryItem(name: "appId", value: apiKey)]
+    func fetchWeatherFromServer(for city: String?, zip: String?, country: String?, completion: @escaping (Result<WeatherData, NetworkError>) -> Void) {
+        
+        // If a zip is passed in, make sure it's valid and only numeric
+        if (zip != nil) {
+           guard let zip = zip, zip.count == 5, Int(zip) != nil else {
+            print("Invalid zipcode")
+            return
+           }
+        }
+        
+        var cityQueries = [URLQueryItem(name: "q", value: city)]
+        var zipQueries = [URLQueryItem(name: "zip", value: zip), URLQueryItem(name: "country", value: "US")]
+        
+        cityQueries.append(URLQueryItem(name: "appId", value: apiKey))
+        zipQueries.append(URLQueryItem(name: "appId", value: apiKey))
+        
         var urlComponents = URLComponents(string: "https://api.openweathermap.org/data/2.5/weather")!
-        urlComponents.queryItems = queries
+        urlComponents.queryItems = city != nil ? cityQueries : zipQueries
         let url = urlComponents.url!
-        print(url)
+
         let request = URLRequest(url: url)
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let error = error {

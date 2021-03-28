@@ -39,8 +39,19 @@ class ChooseInitialLocationViewController: UIViewController, UISearchBarDelegate
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchTerm = searchBar.text,
             searchTerm != "" else { return }
+        var city: String? = nil
+        var zip: String? = nil
         
-        weatherController.fetchWeatherByCity(for: searchTerm) { (result) in
+        city = searchTerm
+        
+       if searchTerm.count == 5, Int(searchTerm) != nil {
+            zip = searchTerm
+            city = nil
+        }
+        
+        print("Zip Code: \(zip)")
+        
+        weatherController.fetchWeatherFromServer(for: city, zip: zip, country: nil) { (result) in
             do {
                 let weather = try result.get()
                 self.weatherData = weather

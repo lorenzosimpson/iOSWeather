@@ -16,19 +16,23 @@ class MainViewController: UIViewController, LocationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        navigationController?.setNavigationBarHidden(true, animated: true)
-        temperatureLabel.sizeToFit()
+        navigationController?.setNavigationBarHidden(true, animated: false)
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        getWeather()
+        NotificationCenter.default.addObserver(self, selector: #selector(getWeather), name: UIApplication.willEnterForegroundNotification, object: nil)
+    }
+    
+    @objc func getWeather() {
         let defaultCity = UserDefaults.standard.value(forKey: "city")
         if defaultCity == nil {
             performSegue(withIdentifier: "ShowChooseCitySegue", sender: self)
         } else {
             guard let cityName = UserDefaults.standard.value(forKey: "city") else { return }
-            weatherController.fetchWeatherByCity(for: cityName as! String) { (result) in
+            weatherController.fetchWeatherFromServer(for: cityName as! String, zip: nil, country: nil) { (result) in
                 do {
                     let weather = try result.get()
                     DispatchQueue.main.async {
@@ -36,7 +40,7 @@ class MainViewController: UIViewController, LocationDelegate {
                     }
                     
                 } catch {
-                    print("Error getting weather for default location")
+                    fatalError("Error getting weather for default location")
                 }
             }
         }

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		EDA9AB232610D46E00AF4600 /* CountryCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA9AB222610D46E00AF4600 /* CountryCodes.swift */; };
+		ED6BAF772610FA270098195C /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6BAF762610FA270098195C /* Util.swift */; };
 		EDCFCFE8260F7592008DE9AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDCFCFE7260F7592008DE9AD /* SceneDelegate.swift */; };
 		EDCFCFEA260F7592008DE9AD /* ChooseInitialLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDCFCFE9260F7592008DE9AD /* ChooseInitialLocationViewController.swift */; };
 		EDCFCFED260F7592008DE9AD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDCFCFEB260F7592008DE9AD /* Main.storyboard */; };
@@ -24,7 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		EDA9AB222610D46E00AF4600 /* CountryCodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCodes.swift; sourceTree = SOURCE_ROOT; };
+		ED6BAF762610FA270098195C /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Util.swift; path = WeatheriOS/Util.swift; sourceTree = SOURCE_ROOT; };
 		EDCFCFE2260F7592008DE9AD /* WeatheriOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatheriOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDCFCFE7260F7592008DE9AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		EDCFCFE9260F7592008DE9AD /* ChooseInitialLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseInitialLocationViewController.swift; sourceTree = "<group>"; };
@@ -99,7 +99,7 @@
 		EDCFD038260FDBBA008DE9AD /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				EDA9AB222610D46E00AF4600 /* CountryCodes.swift */,
+				ED6BAF762610FA270098195C /* Util.swift */,
 				EDCFD007260F75E6008DE9AD /* WeatherController.swift */,
 				EDCFD00D260F75F1008DE9AD /* WeatherData.swift */,
 				EDCFD004260F75E1008DE9AD /* City.swift */,
@@ -199,7 +199,7 @@
 				EDCFD005260F75E1008DE9AD /* City.swift in Sources */,
 				EDCFCFEA260F7592008DE9AD /* ChooseInitialLocationViewController.swift in Sources */,
 				EDCFCFE8260F7592008DE9AD /* SceneDelegate.swift in Sources */,
-				EDA9AB232610D46E00AF4600 /* CountryCodes.swift in Sources */,
+				ED6BAF772610FA270098195C /* Util.swift in Sources */,
 				EDCFD008260F75E6008DE9AD /* WeatherController.swift in Sources */,
 				EDCFCFFF260F75D4008DE9AD /* CityCollectionViewCell.swift in Sources */,
 				EDCFD00E260F75F1008DE9AD /* WeatherData.swift in Sources */,

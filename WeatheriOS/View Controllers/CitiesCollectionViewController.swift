@@ -23,7 +23,7 @@ class CitiesCollectionViewController: UIViewController {
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         configureCollectionView()
-        weatherController.fetchWeatherByCity(for: "New York") { (result) in
+        weatherController.fetchWeatherFromServer(for: "New York", zip: nil, country: nil) { (result) in
            let success = try! result.get()
             print(success)
         }
