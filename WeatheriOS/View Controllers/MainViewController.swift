@@ -9,7 +9,7 @@ import UIKit
 
 class MainViewController: UIViewController, LocationDelegate {
     
-    func locationWasUpdated(with weatherData: WeatherData) {
+    func locationWasUpdated(with weatherData: WeatherData?) {
         self.weatherData = weatherData
     }
 
@@ -17,7 +17,8 @@ class MainViewController: UIViewController, LocationDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         navigationController?.setNavigationBarHidden(true, animated: true)
-        weatherImageView.image?.withRenderingMode(.alwaysTemplate)
+        temperatureLabel.sizeToFit()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -56,24 +57,37 @@ class MainViewController: UIViewController, LocationDelegate {
     }
     
     func updateViews() {
-        guard let weatherData = weatherData else { fatalError("Could not update UI with weather data") }
-        cityLabel.text = weatherData.name
-        countryLabel.text = "United States"
-        dateLabel.text = "Mar 27, 2021"
-        //9/5(K - 273) + 32
-        temperatureLabel.text = String(format: "%.0f", ((9/5) * (weatherData.main.temp - 273) + 32))
-        
-        let weatherDescriptions = weatherData.weather[0].main.lowercased()
-            if weatherDescriptions.contains("clouds") {
+        if let weatherData = weatherData {
+            cityLabel.text = weatherData.name
+            countryLabel.text = Util().countryCodes[weatherData.sys.country]
+            dateLabel.text = weatherController.formatTodayDate()
+            
+            let temp = weatherData.main.temp
+            temperatureLabel.text = weatherController.convertTemp(temp: temp, from: .kelvin, to: .fahrenheit)
+            weatherImageView.image?.withRenderingMode(.alwaysTemplate)
+            
+            let weatherDescriptions = weatherData.weather[0].main.lowercased()
+            mainConditionLabel.text = weatherDescriptions
+            weatherImageView.tintColor = .white
+            
+            if weatherDescriptions.contains("parly cloudy") {
+                weatherImageView.image = UIImage(systemName: "cloud.sun")
+            } else if weatherDescriptions.contains("clouds") {
                 weatherImageView.image = UIImage(systemName: "cloud")
             } else if weatherDescriptions.contains("sun") {
                 weatherImageView.image = UIImage(systemName: "sun")
                 weatherImageView.tintColor = .yellow
             } else if weatherDescriptions.contains("clear") {
-                weatherImageView.image = UIImage(systemName: "sun.min")
+                weatherImageView.image = UIImage(systemName: "sun.max")
                 weatherImageView.tintColor = .yellow
+            } else if weatherDescriptions.contains("mist") {
+                weatherImageView.image = UIImage(systemName: "cloud.rain")
+            } else if weatherDescriptions.contains("rain") {
+                weatherImageView.image = UIImage(systemName: "cloud.heavyrain")
+            } else if weatherDescriptions.contains("haze") {
+                weatherImageView.image = UIImage(systemName: "sun.haze")
             }
-       
+        }
     }
     
     
@@ -82,6 +96,7 @@ class MainViewController: UIViewController, LocationDelegate {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var weatherImageView: UIImageView!
     @IBOutlet weak var temperatureLabel: UILabel!
+    @IBOutlet weak var mainConditionLabel: UILabel!
     
     let weatherController = WeatherController()
 }

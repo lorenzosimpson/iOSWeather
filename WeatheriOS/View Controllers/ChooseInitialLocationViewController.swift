@@ -8,12 +8,11 @@
 import UIKit
 
 protocol LocationDelegate {
-    func locationWasUpdated(with weatherData: WeatherData)
+    func locationWasUpdated(with weatherData: WeatherData?)
 }
 
 class ChooseInitialLocationViewController: UIViewController, UISearchBarDelegate {
 
-    
     let weatherController = WeatherController()
     var locationDelegate: LocationDelegate?
     var weatherData: WeatherData?
@@ -26,7 +25,7 @@ class ChooseInitialLocationViewController: UIViewController, UISearchBarDelegate
     }
     
      override func viewWillDisappear(_ animated: Bool) {
-        locationDelegate?.locationWasUpdated(with: weatherData!)
+        locationDelegate?.locationWasUpdated(with: weatherData)
     }
     
     @IBOutlet weak var searchBar: UISearchBar!
@@ -38,7 +37,6 @@ class ChooseInitialLocationViewController: UIViewController, UISearchBarDelegate
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-    
         guard let searchTerm = searchBar.text,
             searchTerm != "" else { return }
         
@@ -48,18 +46,43 @@ class ChooseInitialLocationViewController: UIViewController, UISearchBarDelegate
                 self.weatherData = weather
                 self.setDefaultLocation(city: weather.name)
                 
-                    DispatchQueue.main.async {
-                        self.locationDelegate?.locationWasUpdated(with: weather)
-                        self.dismiss(animated: true, completion: nil)
-                    }
-                
+                DispatchQueue.main.async {
+                    self.locationDelegate?.locationWasUpdated(with: weather)
+                    self.dismiss(animated: true, completion: nil)
+                }
             } catch {
-                print("Error dismissing")
+                if let error = error as? NetworkError {
+                    var errorTitle: String = ""
+                    var errorMessage: String = ""
+                    switch error {
+                        case .cityNotFound:
+                            errorTitle = "City not found"
+                            errorMessage = "Please check spelling and try again."
+                            let alert = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: .alert)
+                            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                            alert.addAction(okAction)
+                            DispatchQueue.main.async {
+                                self.present(alert, animated: true, completion: nil)
+                            }
+                    
+                        case .failedDecode:
+                            NSLog("Failed to decode JSON")
+                            
+                        case .other:
+                            errorTitle = "An error occured"
+                            errorMessage = "Please try again"
+                            let alert = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: .alert)
+                            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                            alert.addAction(okAction)
+                            DispatchQueue.main.async {
+                                self.present(alert, animated: true, completion: nil)
+                            }
+                        default:
+                            break
+                    }
+                }
             }
-        
         }
-        
     }
-
 }
 

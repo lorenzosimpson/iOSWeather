@@ -11,11 +11,11 @@ enum NetworkError: Error {
     case noData
     case failedDecode
     case other
+    case cityNotFound
 }
 
 
 class WeatherController {
-    
     
     var weather: WeatherData?
     
@@ -35,10 +35,15 @@ class WeatherController {
         let url = urlComponents.url!
         print(url)
         let request = URLRequest(url: url)
-        let task = URLSession.shared.dataTask(with: request) { (data, _, error) in
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let error = error {
                 print("Error fetching city weather, \(error)")
                 completion(.failure(.other))
+                return
+            }
+            if let response = response as? HTTPURLResponse, response.statusCode == 404 {
+                print("City not found")
+                completion(.failure(.cityNotFound))
                 return
             }
             guard let data = data else {
@@ -48,18 +53,46 @@ class WeatherController {
             }
             print(data)
             do {
-            // decode the data
                 let decoder = JSONDecoder()
                 let cityWeather = try decoder.decode(WeatherData.self, from: data)
                 self.weather = cityWeather
                 print(cityWeather)
                 completion(.success(cityWeather))
+                
             } catch {
                 print("Error decoding json, \(error)")
                 completion(.failure(.failedDecode))
             }
         }
         task.resume()
+    }
+    
+    func formatTodayDate() -> String? {
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = "yyyy-MM-dd HH:mm:ss"
+
+        let dateFormatterPrint = DateFormatter()
+        dateFormatterPrint.dateFormat = "MMM dd, yyyy"
+
+        if let date = dateFormatterGet.date(from: dateFormatterGet.string(from: Date())) {
+            return dateFormatterPrint.string(from: date)
+        } else {
+           print("There was an error decoding the string")
+            return nil
         }
+    }
+    
+    
+    func convertTemp(temp: Double, from inputTempType: UnitTemperature, to outputTempType: UnitTemperature) -> String {
+        let mf = MeasurementFormatter()
+        mf.numberFormatter.maximumFractionDigits = 0
+        mf.unitOptions = .providedUnit
+        let input = Measurement(value: temp, unit: inputTempType)
+        let output = input.converted(to: outputTempType)
+        return mf.string(from: output)
+    }
+
 }
+
+
 
