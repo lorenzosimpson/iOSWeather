@@ -71,8 +71,11 @@ class MainViewController: UIViewController, LocationDelegate {
             weatherImageView.image?.withRenderingMode(.alwaysTemplate)
             
             let weatherDescriptions = weatherData.weather[0].main.lowercased()
-            mainConditionLabel.text = weatherDescriptions
+            mainConditionLabel.text = weatherDescriptions.uppercased()
             weatherImageView.tintColor = .white
+            
+            let desc = weatherData.weather[0].description.capitalized
+            descLabel.text = desc
             
             if weatherDescriptions.contains("parly cloudy") {
                 weatherImageView.image = UIImage(systemName: "cloud.sun")
@@ -101,6 +104,7 @@ class MainViewController: UIViewController, LocationDelegate {
     @IBOutlet weak var weatherImageView: UIImageView!
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var mainConditionLabel: UILabel!
+    @IBOutlet weak var descLabel: UILabel!
     
     let weatherController = WeatherController()
 }
