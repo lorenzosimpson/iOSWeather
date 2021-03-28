@@ -31,16 +31,15 @@ class CurrentWeatherViewController: UIViewController, LocationDelegate {
         if defaultCity == nil {
             performSegue(withIdentifier: "ShowChooseCitySegue", sender: self)
         } else {
-            guard let cityName = UserDefaults.standard.value(forKey: "city") else { return }
             weatherController.fetchWeatherById(cityId: defaultCity as! Int) { (result) in
                 do {
                     let weather = try result.get()
+                    self.weatherController.setDefaultLocation(cityId: weather.id)
                     DispatchQueue.main.async {
                         self.locationWasUpdated(with: weather)
                     }
-                    
                 } catch {
-                    fatalError("Error getting weather for default location")
+                    fatalError("Error getting weather for default location, \(error)")
                 }
             }
         }

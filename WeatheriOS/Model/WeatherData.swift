@@ -13,12 +13,14 @@ struct WeatherData: Decodable {
     let weather: [Weather]
     let main: Main
     let sys: Sys
+    let id: Int
     
     enum Keys: String, CodingKey {
         case name
         case weather
         case main
         case sys
+        case id
         
         enum WeatherKeys: String, CodingKey {
             case id
@@ -41,11 +43,12 @@ struct WeatherData: Decodable {
         }
     }
     
-    init(name: String, weather: [Weather], main: Main, sys: Sys) {
+    init(name: String, weather: [Weather], main: Main, sys: Sys, id: Int) {
         self.name = name
         self.weather = weather
         self.main = main
         self.sys = sys
+        self.id = id
     }
     
     init(from decoder: Decoder) throws {
@@ -80,6 +83,7 @@ struct WeatherData: Decodable {
         main = Main(temp: temp, feelsLike: feelsLike, tempMin: tempMin, tempMax: tempMax, pressure: pressure, humidity: humidity)
         
         name = try container.decode(String.self, forKey: .name)
+        id = try container.decode(Int.self, forKey: .id)
         
         let sysContainer = try container.nestedContainer(keyedBy: Keys.SysKeys.self, forKey: .sys)
         let country = try sysContainer.decode(String.self, forKey: .country)

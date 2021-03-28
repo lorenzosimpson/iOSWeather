@@ -40,7 +40,7 @@ class WeatherController {
         }
         
         var cityQueries = [URLQueryItem(name: "q", value: city)]
-        var zipQueries = [URLQueryItem(name: "zip", value: zip), URLQueryItem(name: "country", value: "US")]
+        var zipQueries = [URLQueryItem(name: "q", value: "\(zip ?? ""),us")]
         
         cityQueries.append(URLQueryItem(name: "appId", value: apiKey))
         zipQueries.append(URLQueryItem(name: "appId", value: apiKey))
@@ -48,7 +48,7 @@ class WeatherController {
         
         urlComponents.queryItems = city != nil ? cityQueries : zipQueries
         let url = urlComponents.url!
-
+        print(url)
         let request = URLRequest(url: url)
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let error = error {
@@ -90,7 +90,7 @@ class WeatherController {
         urlComponents.queryItems = idQueries
         
         let url = urlComponents.url!
-        
+        print(url)
         var request = URLRequest(url: url)
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -149,6 +149,32 @@ class WeatherController {
         let input = Measurement(value: temp, unit: inputTempType)
         let output = input.converted(to: outputTempType)
         return mf.string(from: output)
+    }
+    
+    func setDefaultLocation(cityId: Int) {
+        let userDefaults = UserDefaults.standard
+        //        var cityCode: Int? = nil
+        
+        userDefaults.setValue(cityId, forKey: "city")
+        
+//        if let path = Bundle.main.path(forResource: "cities", ofType: "json") {
+//            DispatchQueue.global(qos: .background).async {
+//                do {
+//                    let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+//                    let citiesArr = try JSONDecoder().decode([CityCode].self, from: data)
+//
+//                    if let code = citiesArr.first(where: {$0.id == cityCode}) {
+//                        cityCode = code.id
+//                    }
+//                } catch {
+//                    // handle error
+//                    print("failed to get city code")
+//                }
+//
+//                userDefaults.setValue(cityCode, forKey: "city")
+//                print("City saved.")
+//            }
+//       }
     }
 
 }
