@@ -91,7 +91,7 @@ class WeatherController {
         
         let url = urlComponents.url!
         print(url)
-        var request = URLRequest(url: url)
+        let request = URLRequest(url: url)
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let error = error {
@@ -153,28 +153,7 @@ class WeatherController {
     
     func setDefaultLocation(cityId: Int) {
         let userDefaults = UserDefaults.standard
-        //        var cityCode: Int? = nil
-        
         userDefaults.setValue(cityId, forKey: "city")
-        
-//        if let path = Bundle.main.path(forResource: "cities", ofType: "json") {
-//            DispatchQueue.global(qos: .background).async {
-//                do {
-//                    let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-//                    let citiesArr = try JSONDecoder().decode([CityCode].self, from: data)
-//
-//                    if let code = citiesArr.first(where: {$0.id == cityCode}) {
-//                        cityCode = code.id
-//                    }
-//                } catch {
-//                    // handle error
-//                    print("failed to get city code")
-//                }
-//
-//                userDefaults.setValue(cityCode, forKey: "city")
-//                print("City saved.")
-//            }
-//       }
     }
 
 }
