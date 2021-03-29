@@ -19,6 +19,9 @@ class ForecastCollectionViewController: UICollectionViewController {
         // Register cell classes
       //  self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         collectionView.dataSource = self
+        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+                layout.scrollDirection = .horizontal  // .horizontal
+            }
 
         // Do any additional setup after loading the view.
     }
@@ -39,14 +42,18 @@ class ForecastCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 8
+        return 10
+    }
+    
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ForecastCollectionViewCell.reuseIdentifier, for: indexPath) as? ForecastCollectionViewCell else { fatalError("Could not dequeue cell")}
     
         // Configure the cell
-        cell.cellLabel.text = "poop"
+      //  cell.cellLabel.text = 
     
         return cell
     }
