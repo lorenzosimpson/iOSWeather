@@ -17,7 +17,19 @@ class CurrentWeatherViewController: UIViewController, LocationDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         navigationController?.setNavigationBarHidden(true, animated: false)
+        createGradient()
+    }
+    
+    func createGradient() {
+        let colorTop =  UIColor(red: 105/255.0, green: 66/255.0, blue: 245/255.0, alpha: 1.0).cgColor
+        let colorBottom = UIColor(red: 122/255.0, green: 156/255.0, blue: 255/255.0, alpha: 1.0).cgColor
         
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [colorTop, colorBottom]
+        gradientLayer.locations = [0.0, 1.0]
+        gradientLayer.frame = self.view.bounds
+        
+        self.view.layer.insertSublayer(gradientLayer, at:0)
     }
     
     override func viewDidAppear(_ animated: Bool) {
