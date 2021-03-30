@@ -25,6 +25,7 @@
 		EDCFD011260F75F5008DE9AD /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = EDCFD010260F75F5008DE9AD /* Keys.plist */; };
 		EDEB0738261242C700CCEF7A /* ForecastCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEB0737261242C600CCEF7A /* ForecastCollectionViewController.swift */; };
 		EDEB073B2612466400CCEF7A /* ForecastCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEB073A2612466400CCEF7A /* ForecastCollectionViewCell.swift */; };
+		EDEB073F261397B000CCEF7A /* ForecastData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEB073E261397B000CCEF7A /* ForecastData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		EDCFD010260F75F5008DE9AD /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		EDEB0737261242C600CCEF7A /* ForecastCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastCollectionViewController.swift; sourceTree = SOURCE_ROOT; };
 		EDEB073A2612466400CCEF7A /* ForecastCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
+		EDEB073E261397B000CCEF7A /* ForecastData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastData.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 		EDCFD038260FDBBA008DE9AD /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				EDEB073E261397B000CCEF7A /* ForecastData.swift */,
 				ED6BAF8026112B430098195C /* CityCode.swift */,
 				ED6BAF762610FA270098195C /* Util.swift */,
 				ED6BAF7C261125AA0098195C /* cities.json */,
@@ -211,6 +214,7 @@
 				EDCFD002260F75D9008DE9AD /* CitiesCollectionViewController.swift in Sources */,
 				EDCFD005260F75E1008DE9AD /* City.swift in Sources */,
 				EDCFCFEA260F7592008DE9AD /* SearchViewController.swift in Sources */,
+				EDEB073F261397B000CCEF7A /* ForecastData.swift in Sources */,
 				EDCFCFE8260F7592008DE9AD /* SceneDelegate.swift in Sources */,
 				ED6BAF772610FA270098195C /* Util.swift in Sources */,
 				EDCFD008260F75E6008DE9AD /* WeatherController.swift in Sources */,
