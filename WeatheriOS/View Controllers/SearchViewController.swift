@@ -8,7 +8,7 @@
 import UIKit
 
 protocol LocationDelegate {
-    func locationWasUpdated(with weatherData: WeatherData?)
+    func locationWasUpdated<T>(with data: T)
 }
 
 class SearchViewController: UIViewController, UISearchBarDelegate {

@@ -110,7 +110,7 @@
                                     <constraint firstAttribute="height" constant="150" id="dEi-JT-w2E"/>
                                 </constraints>
                                 <connections>
-                                    <segue destination="bdG-mT-NYk" kind="embed" id="oe0-0a-olm"/>
+                                    <segue destination="bdG-mT-NYk" kind="embed" identifier="ForecastCollectionViewSegue" id="oe0-0a-olm"/>
                                 </connections>
                             </containerView>
                         </subviews>

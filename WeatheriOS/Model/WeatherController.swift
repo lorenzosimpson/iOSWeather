@@ -22,27 +22,25 @@ class WeatherController {
     private var urlComponents = URLComponents(string: "https://api.openweathermap.org/data/2.5/weather")!
     private var urlComponentsForecast = URLComponents(string: "https://api.openweathermap.org/data/2.5/forecast")!
     
-    
-    func fetchFetchForecastFromServer(for city: String?, zip: String?, country: String?, completion: @escaping (Result<ForecastData, NetworkError>) -> Void) {
-        // If a zip is passed in, make sure it's valid and only numeric
-        if (zip != nil) {
-           guard let zip = zip, zip.count == 5, Int(zip) != nil else {
-            print("Invalid zipcode")
-            return
-           }
+    var apiKey: String {
+        var keys: NSDictionary?
+        if let path = Bundle.main.path(forResource: "Keys", ofType: "plist") {
+                keys = NSDictionary(contentsOfFile: path)
+            return keys!["API Key"] as! String
         }
+        return ""
+    }
+    
+    func fetchForecastFromServer(cityId: Int, completion: @escaping (Result<ForecastData, NetworkError>) -> Void) {
+        let idQueries = [URLQueryItem(name: "id", value: String(cityId)),
+                         URLQueryItem(name: "appId", value: apiKey)
+        ]
+        urlComponentsForecast.queryItems = idQueries
         
-        var cityQueries = [URLQueryItem(name: "q", value: city)]
-        var zipQueries = [URLQueryItem(name: "q", value: "\(zip ?? ""),us")]
-        
-        cityQueries.append(URLQueryItem(name: "appId", value: apiKey))
-        zipQueries.append(URLQueryItem(name: "appId", value: apiKey))
-        
-        
-        urlComponentsForecast.queryItems = city != nil ? cityQueries : zipQueries
         let url = urlComponentsForecast.url!
         print(url)
         let request = URLRequest(url: url)
+        
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let error = error {
                 print("Error fetching city weather, \(error)")
@@ -62,27 +60,20 @@ class WeatherController {
           
             do {
                 let decoder = JSONDecoder()
-                let forecastData = try decoder.decode(ForecastData.self, from: data)
-                self.forecast = forecastData
-                print(forecastData)
-                completion(.success(forecastData))
+                let forecastWeather = try decoder.decode(ForecastData.self, from: data)
+                self.forecast = forecastWeather
+                print("Got forecast for \(forecastWeather.city)")
+                completion(.success(forecastWeather))
                 
             } catch {
-                print("Error decoding json in forecast fn, \(error)")
+                print("Error decoding json, \(error)")
                 completion(.failure(.failedDecode))
             }
         }
         task.resume()
     }
     
-    var apiKey: String {
-        var keys: NSDictionary?
-        if let path = Bundle.main.path(forResource: "Keys", ofType: "plist") {
-                keys = NSDictionary(contentsOfFile: path)
-            return keys!["API Key"] as! String
-        }
-        return ""
-    }
+  
    
     func fetchWeatherFromServer(for city: String?, zip: String?, country: String?, completion: @escaping (Result<WeatherData, NetworkError>) -> Void) {
         
@@ -99,7 +90,6 @@ class WeatherController {
         
         cityQueries.append(URLQueryItem(name: "appId", value: apiKey))
         zipQueries.append(URLQueryItem(name: "appId", value: apiKey))
-        
         
         urlComponents.queryItems = city != nil ? cityQueries : zipQueries
         let url = urlComponents.url!
@@ -126,9 +116,9 @@ class WeatherController {
                 let decoder = JSONDecoder()
                 let cityWeather = try decoder.decode(WeatherData.self, from: data)
                 self.weather = cityWeather
-                print(cityWeather)
-                self.fetchFetchForecastFromServer(for: city, zip: zip, country: country) { (result) in
+                self.fetchForecastFromServer(cityId: cityWeather.id) { (result) in
                     try! result.get()
+                    print("Got forecast for \(cityWeather.name)")
                 }
                 completion(.success(cityWeather))
                 
@@ -148,7 +138,6 @@ class WeatherController {
         urlComponents.queryItems = idQueries
         
         let url = urlComponents.url!
-        print(url)
         let request = URLRequest(url: url)
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -172,7 +161,10 @@ class WeatherController {
                 let decoder = JSONDecoder()
                 let cityWeather = try decoder.decode(WeatherData.self, from: data)
                 self.weather = cityWeather
-                print(cityWeather)
+                self.fetchForecastFromServer(cityId: cityId) { (result) in
+                    try! result.get()
+                    print("Got forecast for \(cityId)")
+                }
                 completion(.success(cityWeather))
                 
             } catch {

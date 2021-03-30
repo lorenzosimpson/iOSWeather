@@ -8,11 +8,10 @@
 import UIKit
 
 class CurrentWeatherViewController: UIViewController, LocationDelegate {
-    
-    func locationWasUpdated(with weatherData: WeatherData?) {
-        self.weatherData = weatherData
+    func locationWasUpdated<T>(with data: T) {
+        self.weatherData = data as? WeatherData
     }
-
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -38,8 +37,9 @@ class CurrentWeatherViewController: UIViewController, LocationDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(getWeather), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
     
+    let defaultCity = UserDefaults.standard.value(forKey: "city")
+    
     @objc func getWeather() {
-        let defaultCity = UserDefaults.standard.value(forKey: "city")
         if defaultCity == nil {
             performSegue(withIdentifier: "ShowChooseCitySegue", sender: self)
         } else {
@@ -61,6 +61,14 @@ class CurrentWeatherViewController: UIViewController, LocationDelegate {
         if segue.identifier == "ShowChooseCitySegue" {
             if let locationVC = segue.destination as? SearchViewController {
                 locationVC.locationDelegate = self
+            }
+        }
+        if segue.identifier == "ForecastCollectionViewSegue" {
+            if let forecastVC = segue.destination as? ForecastCollectionViewController {
+                if defaultCity != nil {
+                forecastVC.cityId = defaultCity as? Int
+                forecastVC.weatherController = weatherController
+                }
             }
         }
     }

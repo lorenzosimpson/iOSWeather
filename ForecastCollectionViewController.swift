@@ -8,8 +8,13 @@
 import UIKit
 
 
-class ForecastCollectionViewController: UICollectionViewController {
-
+class ForecastCollectionViewController: UICollectionViewController, LocationDelegate {
+    func locationWasUpdated<T>(with data: T) {
+        self.forecastData = data as? ForecastData
+    }
+    
+    var forecastData: ForecastData?
+  
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,8 +27,20 @@ class ForecastCollectionViewController: UICollectionViewController {
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
                 layout.scrollDirection = .horizontal  // .horizontal
             }
+        
 
         // Do any additional setup after loading the view.
+    }
+  
+    var cityId: Int?
+    
+    var weatherController: WeatherController? {
+        didSet {
+            weatherController?.fetchForecastFromServer(cityId: cityId!, completion: { (result) in
+                let forecast = try! result.get()
+                self.locationWasUpdated(with: forecast)
+            })
+        }
     }
     
 
@@ -42,7 +59,8 @@ class ForecastCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 10
+        //return forecastData.list.count
+        return 5
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -53,11 +71,13 @@ class ForecastCollectionViewController: UICollectionViewController {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ForecastCollectionViewCell.reuseIdentifier, for: indexPath) as? ForecastCollectionViewCell else { fatalError("Could not dequeue cell")}
     
         // Configure the cell
-      //  cell.cellLabel.text = 
+       
+       // cell.cellLabel.text = String(forecastData.list[indexPath.item].weather[0].description)
     
         return cell
     }
-
+    
+    
     // MARK: UICollectionViewDelegate
 
     /*
