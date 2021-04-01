@@ -15,7 +15,6 @@ class CurrentWeatherViewController: UIViewController, LocationDelegate, ReloadDe
             
             DispatchQueue.main.async {
                 self.updateViews()
-                self.collectionView.reloadData()
             }
         }
     }
@@ -86,6 +85,12 @@ class CurrentWeatherViewController: UIViewController, LocationDelegate, ReloadDe
     
     func updateViews() {
         if let weatherData = weatherController.weather {
+            DispatchQueue.global().async {
+                let data = try? Data(contentsOf: URL(string: "https://openweathermap.org/img/wn/\(weatherData.weather[0].icon)@4x.png")!)
+                DispatchQueue.main.async {
+                    self.weatherImageView.image = UIImage(data: data!)
+                }
+            }
             cityLabel.text = weatherData.name
             countryLabel.text = Util().countryCodes[weatherData.sys.country]
             dateLabel.text = weatherController.formatTodayDate()
@@ -95,29 +100,11 @@ class CurrentWeatherViewController: UIViewController, LocationDelegate, ReloadDe
             weatherImageView.image?.withRenderingMode(.alwaysTemplate)
             
             let weatherDescriptions = weatherData.weather[0].main.lowercased()
-            mainConditionLabel.text = weatherDescriptions.uppercased()
+            mainConditionLabel.text = weatherDescriptions.capitalized
             weatherImageView.tintColor = .white
             
             let desc = weatherData.weather[0].description.capitalized
             descLabel.text = desc
-            
-            if weatherDescriptions.contains("parly cloudy") {
-                weatherImageView.image = UIImage(systemName: "cloud.sun")
-            } else if weatherDescriptions.contains("clouds") {
-                weatherImageView.image = UIImage(systemName: "cloud")
-            } else if weatherDescriptions.contains("sun") {
-                weatherImageView.image = UIImage(systemName: "sun")
-                weatherImageView.tintColor = .yellow
-            } else if weatherDescriptions.contains("clear") {
-                weatherImageView.image = UIImage(systemName: "sun.max")
-                weatherImageView.tintColor = .yellow
-            } else if weatherDescriptions.contains("mist") {
-                weatherImageView.image = UIImage(systemName: "cloud.rain")
-            } else if weatherDescriptions.contains("rain") {
-                weatherImageView.image = UIImage(systemName: "cloud.heavyrain")
-            } else if weatherDescriptions.contains("haze") {
-                weatherImageView.image = UIImage(systemName: "sun.haze")
-            }
         }
     }
     
@@ -136,22 +123,45 @@ class CurrentWeatherViewController: UIViewController, LocationDelegate, ReloadDe
 
 extension CurrentWeatherViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return weatherController.forecast?.list.count ?? 0
+        return 6
     }
+    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? ForecastCollectionViewCell else {
             NSLog("Wrong cell type")
             return UICollectionViewCell()
         }
+        var prevDay: List?
         if let day = weatherController.forecast?.list[indexPath.item],
            let city = weatherController.forecast?.city {
             let temp = day.main.temp
             cell.forecastTempLabel.text = weatherController.convertTemp(temp: temp, from: .kelvin, to: .fahrenheit)
+           
+                DispatchQueue.global().async {
+                    let data = try? Data(contentsOf: URL(string: "https://openweathermap.org/img/wn/\(day.weather[0].icon)@4x.png")!)
+                DispatchQueue.main.async {
+                    cell.iconImageView.image = UIImage(data: data!)
+                    }
+                }
             
             let date = day.dt
+            var prevDayWeek: String?
             let dateTime =  weatherController.convertUnixToDate(with: date, secondsFromGMT: city.timezone!)
-            cell.dateLabel.text = dateTime[1]
+            cell.dateLabel.text = ""
+            print(indexPath.item)
+            if indexPath.item != 0 {
+                prevDay = weatherController.forecast?.list[indexPath.item - 1]
+                if prevDay != nil {
+                    prevDayWeek = weatherController.convertUnixToDate(with: (prevDay?.dt)!, secondsFromGMT:city.timezone!)[1]
+                    if prevDayWeek != dateTime[1] {
+                        cell.dateLabel.text = dateTime[1]
+                    }
+                }
+            } else {
+                cell.dateLabel.text = dateTime[1]
+            }
+            
             cell.timeLabel.text = dateTime[0]
             
         }

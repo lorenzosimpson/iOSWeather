@@ -217,17 +217,19 @@ class WeatherController {
         let dateFormatterHr = DateFormatter()
         dateFormatterHr.timeZone = TimeZone(secondsFromGMT: secondsFromGMT) //Set timezone that you want
         dateFormatterHr.locale = NSLocale.current
-        dateFormatterHr.dateFormat = "HH:mm" //Specify your format that you want
+        dateFormatterHr.dateFormat = "HH" //Specify your format that you want
         
         
         let dateFormatterDay = DateFormatter()
         dateFormatterDay.timeZone = TimeZone(secondsFromGMT: secondsFromGMT) //Set timezone that you want
         dateFormatterDay.locale = NSLocale.current
-        dateFormatterDay.dateFormat = "MMM d" //Specify your format that you want
+        dateFormatterDay.dateFormat = "EEEE" //Specify your format that you want
         let strDateHr = dateFormatterHr.string(from: date)
         let strDateDay = dateFormatterDay.string(from: date)
         return [strDateHr, strDateDay]
     }
+    
+    
 
 }
 
