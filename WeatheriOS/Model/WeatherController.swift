@@ -211,17 +211,17 @@ class WeatherController {
     }
     
     
-    func convertUnixToDate(with timestamp: Int) -> [String] {
+    func convertUnixToDate(with timestamp: Int, secondsFromGMT: Int) -> [String] {
         let unixtimeInterval = Double(timestamp)
         let date = Date(timeIntervalSince1970: unixtimeInterval)
         let dateFormatterHr = DateFormatter()
-        dateFormatterHr.timeZone = TimeZone(abbreviation: "EST") //Set timezone that you want
+        dateFormatterHr.timeZone = TimeZone(secondsFromGMT: secondsFromGMT) //Set timezone that you want
         dateFormatterHr.locale = NSLocale.current
         dateFormatterHr.dateFormat = "HH:mm" //Specify your format that you want
         
         
         let dateFormatterDay = DateFormatter()
-        dateFormatterDay.timeZone = TimeZone(abbreviation: "EST") //Set timezone that you want
+        dateFormatterDay.timeZone = TimeZone(secondsFromGMT: secondsFromGMT) //Set timezone that you want
         dateFormatterDay.locale = NSLocale.current
         dateFormatterDay.dateFormat = "MMM d" //Specify your format that you want
         let strDateHr = dateFormatterHr.string(from: date)
@@ -229,6 +229,13 @@ class WeatherController {
         return [strDateHr, strDateDay]
     }
 
+}
+
+extension WeatherController {
+    func secondsToHours(seconds: Int) -> Int {
+        return seconds / 3600
+    }
+    
 }
 
 

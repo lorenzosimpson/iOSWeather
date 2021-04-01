@@ -80,7 +80,6 @@ class CurrentWeatherViewController: UIViewController, LocationDelegate, ReloadDe
                 locationVC.weatherController = weatherController
             }
         }
-        
     }
  
   
@@ -145,10 +144,18 @@ extension CurrentWeatherViewController: UICollectionViewDataSource {
             NSLog("Wrong cell type")
             return UICollectionViewCell()
         }
-        
-        if let temp = weatherController.forecast?.list[indexPath.item].main.temp {
+        if let day = weatherController.forecast?.list[indexPath.item],
+           let city = weatherController.forecast?.city {
+            let temp = day.main.temp
             cell.forecastTempLabel.text = weatherController.convertTemp(temp: temp, from: .kelvin, to: .fahrenheit)
+            
+            let date = day.dt
+            let dateTime =  weatherController.convertUnixToDate(with: date, secondsFromGMT: city.timezone!)
+            cell.dateLabel.text = dateTime[1]
+            cell.timeLabel.text = dateTime[0]
+            
         }
+       
         return cell
     }
     

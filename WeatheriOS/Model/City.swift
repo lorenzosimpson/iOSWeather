@@ -11,4 +11,5 @@ struct City: Decodable {
     var name: String
     var id: Int?
     var country: String?
+    var timezone: Int?
 }

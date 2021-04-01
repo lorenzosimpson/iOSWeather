@@ -20,6 +20,7 @@ struct ForecastData: Decodable {
             case id
             case name
             case country
+            case timezone
         }
         
         enum ListKeys: String, CodingKey {
@@ -86,11 +87,12 @@ struct ForecastData: Decodable {
         }
 
         let cityContainer = try container.nestedContainer(keyedBy: Keys.CityKeys.self, forKey: .city)
+        let timezone = try cityContainer.decode(Int.self, forKey: .timezone)
         let country = try cityContainer.decode(String.self, forKey: .country)
         let id = try cityContainer.decode(Int.self, forKey: .id)
         let name = try cityContainer.decode(String.self, forKey: .name)
         
-        city = City(name: name, id: id, country: country)
+        city = City(name: name, id: id, country: country, timezone: timezone)
         list = listArr
         
     }

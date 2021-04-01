@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="CLw-aI-R9Z">
-                                <rect key="frame" x="70" y="286" width="274" height="236"/>
+                                <rect key="frame" x="70" y="318" width="274" height="172.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Kve-CJ-hkz">
                                         <rect key="frame" x="0.0" y="0.0" width="274" height="140"/>
@@ -36,13 +36,13 @@
                                                 <rect key="frame" x="160" y="0.0" width="114" height="140"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" text="Today" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lbs-cD-cDi">
-                                                        <rect key="frame" x="0.0" y="0.0" width="114" height="22.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="114" height="22"/>
                                                         <fontDescription key="fontDescription" type="system" weight="thin" pointSize="14"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="highlightedColor" systemColor="opaqueSeparatorColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wJf-kE-lQV">
-                                                        <rect key="frame" x="0.0" y="24.5" width="114" height="77"/>
+                                                        <rect key="frame" x="0.0" y="24" width="114" height="77.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="48"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -59,7 +59,7 @@
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="roS-Ji-y5P">
-                                        <rect key="frame" x="0.0" y="152" width="274" height="84"/>
+                                        <rect key="frame" x="0.0" y="152" width="274" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -104,10 +104,12 @@
                                     <segue destination="abn-cV-Pf2" kind="presentation" identifier="ShowChooseCitySegue" id="Rsq-0P-ubj"/>
                                 </connections>
                             </button>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="lxU-I6-yoQ">
-                                <rect key="frame" x="20" y="581" width="378" height="163"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ohV-nC-3kb">
+                                <rect key="frame" x="0.0" y="596" width="414" height="162"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="162" id="shI-hz-lAT"/>
+                                </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cof-6V-8Nd">
                                     <size key="itemSize" width="100" height="128"/>
                                     <size key="estimatedItemSize" width="85" height="150"/>
@@ -117,7 +119,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" reuseIdentifier="cell" id="b2d-ef-TUv" customClass="ForecastCollectionViewCell" customModule="WeatheriOS" customModuleProvider="target">
-                                        <rect key="frame" x="10" y="17.5" width="120" height="128"/>
+                                        <rect key="frame" x="10" y="17" width="120" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Hg8-kU-atP">
                                             <rect key="frame" x="0.0" y="0.0" width="120" height="128"/>
@@ -181,22 +183,26 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="0.30780500170000002" green="0.46198165419999998" blue="0.91376966240000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ohV-nC-3kb" secondAttribute="bottom" constant="16" id="2ye-MU-xod"/>
                             <constraint firstItem="3FQ-ar-TDU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="6Tm-jc-bIh"/>
-                            <constraint firstItem="lxU-I6-yoQ" firstAttribute="top" secondItem="CLw-aI-R9Z" secondAttribute="bottom" constant="59" id="8nI-cn-dXg"/>
+                            <constraint firstItem="ohV-nC-3kb" firstAttribute="top" relation="greaterThanOrEqual" secondItem="CLw-aI-R9Z" secondAttribute="bottom" constant="30" id="OQV-RB-cGg"/>
+                            <constraint firstItem="ohV-nC-3kb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="SSu-mJ-soU"/>
                             <constraint firstItem="oiB-Xb-62x" firstAttribute="leading" relation="lessThanOrEqual" secondItem="3FQ-ar-TDU" secondAttribute="trailing" constant="150" id="VIw-bF-fhC"/>
                             <constraint firstItem="CLw-aI-R9Z" firstAttribute="leading" relation="lessThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="70" id="VLP-wI-TXa"/>
                             <constraint firstItem="oiB-Xb-62x" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="bJA-dq-UiU"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ohV-nC-3kb" secondAttribute="trailing" id="dWy-qE-cqO"/>
                             <constraint firstItem="CLw-aI-R9Z" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="fLK-ud-Meb"/>
                             <constraint firstItem="3FQ-ar-TDU" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="k74-gW-qqy"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="oiB-Xb-62x" secondAttribute="trailing" constant="16" id="wSo-VD-ouo"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="CLw-aI-R9Z" secondAttribute="trailing" constant="70" id="wtg-wT-fNe"/>
                             <constraint firstItem="CLw-aI-R9Z" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="y1L-Be-tmy"/>
+                            <constraint firstItem="ohV-nC-3kb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="yyA-Mf-bUB"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Wq3-id-pwo"/>
                     <connections>
                         <outlet property="cityLabel" destination="vPM-iG-CdH" id="iTT-I0-FQY"/>
-                        <outlet property="collectionView" destination="lxU-I6-yoQ" id="zRR-Z0-tLz"/>
+                        <outlet property="collectionView" destination="ohV-nC-3kb" id="gps-ag-uUX"/>
                         <outlet property="countryLabel" destination="fbl-bo-mGe" id="CJj-Gq-3gU"/>
                         <outlet property="dateLabel" destination="5cr-KQ-o09" id="zWw-d2-hFS"/>
                         <outlet property="descLabel" destination="roS-Ji-y5P" id="toW-ON-iTe"/>
