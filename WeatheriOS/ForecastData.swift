@@ -59,7 +59,7 @@ struct ForecastData: Decodable {
         while !listContainer.isAtEnd {
             let listItemContainer = try listContainer.nestedContainer(keyedBy: Keys.ListKeys.self)
             var thisWeather: [Weather] = []
-            let dt = try listItemContainer.decode(Date.self, forKey: .dt)
+            let dt = try listItemContainer.decode(Int.self, forKey: .dt)
 
             let mainContainer = try listItemContainer.nestedContainer(keyedBy: Keys.ListKeys.MainKeys.self, forKey: .main)
                 let temp = try mainContainer.decode(Double.self, forKey: .temp)
@@ -98,7 +98,7 @@ struct ForecastData: Decodable {
 }
 
 struct List: Decodable {
-    var dt: Date
+    var dt: Int
     var main: Main
     var weather: [Weather]
 }

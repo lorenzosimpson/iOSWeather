@@ -11,11 +11,9 @@ class ForecastCollectionViewCell: UICollectionViewCell {
     
     static let reuseIdentifier = "cell"
     
-    @IBOutlet weak var cellLabel: UILabel!
+    @IBOutlet weak var forecastTempLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var iconImageView: UIImageView!
     
-    var content: String? {
-        didSet {
-            cellLabel.text = "Hello, world"
-        }
-    }
+    @IBOutlet weak var dateLabel: UILabel!
 }

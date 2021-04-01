@@ -23,7 +23,6 @@
 		EDCFD00B260F75EB008DE9AD /* CurrentWeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDCFD00A260F75EB008DE9AD /* CurrentWeatherViewController.swift */; };
 		EDCFD00E260F75F1008DE9AD /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDCFD00D260F75F1008DE9AD /* WeatherData.swift */; };
 		EDCFD011260F75F5008DE9AD /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = EDCFD010260F75F5008DE9AD /* Keys.plist */; };
-		EDEB0738261242C700CCEF7A /* ForecastCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEB0737261242C600CCEF7A /* ForecastCollectionViewController.swift */; };
 		EDEB073B2612466400CCEF7A /* ForecastCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEB073A2612466400CCEF7A /* ForecastCollectionViewCell.swift */; };
 		EDEB07452613C77500CCEF7A /* ForecastData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEB07442613C77500CCEF7A /* ForecastData.swift */; };
 /* End PBXBuildFile section */
@@ -47,7 +46,6 @@
 		EDCFD00A260F75EB008DE9AD /* CurrentWeatherViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentWeatherViewController.swift; sourceTree = "<group>"; };
 		EDCFD00D260F75F1008DE9AD /* WeatherData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		EDCFD010260F75F5008DE9AD /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
-		EDEB0737261242C600CCEF7A /* ForecastCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastCollectionViewController.swift; sourceTree = SOURCE_ROOT; };
 		EDEB073A2612466400CCEF7A /* ForecastCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ForecastCollectionViewCell.swift; path = "WeatheriOS/Custom Cells/ForecastCollectionViewCell.swift"; sourceTree = SOURCE_ROOT; };
 		EDEB07442613C77500CCEF7A /* ForecastData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ForecastData.swift; path = WeatheriOS/ForecastData.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -99,7 +97,6 @@
 		EDCFD036260FDBAB008DE9AD /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				EDEB0737261242C600CCEF7A /* ForecastCollectionViewController.swift */,
 				EDCFD001260F75D9008DE9AD /* CitiesCollectionViewController.swift */,
 				EDCFCFE9260F7592008DE9AD /* SearchViewController.swift */,
 				EDCFD00A260F75EB008DE9AD /* CurrentWeatherViewController.swift */,
@@ -226,7 +223,6 @@
 				EDCFCFE8260F7592008DE9AD /* SceneDelegate.swift in Sources */,
 				ED6BAF772610FA270098195C /* Util.swift in Sources */,
 				EDCFD008260F75E6008DE9AD /* WeatherController.swift in Sources */,
-				EDEB0738261242C700CCEF7A /* ForecastCollectionViewController.swift in Sources */,
 				EDEB073B2612466400CCEF7A /* ForecastCollectionViewCell.swift in Sources */,
 				EDCFCFFF260F75D4008DE9AD /* CityCollectionViewCell.swift in Sources */,
 				EDCFD00E260F75F1008DE9AD /* WeatherData.swift in Sources */,

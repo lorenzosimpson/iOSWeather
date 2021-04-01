@@ -13,7 +13,7 @@ protocol LocationDelegate {
 
 class SearchViewController: UIViewController, UISearchBarDelegate {
     
-    let weatherController = WeatherController()
+    var weatherController: WeatherController?
     var locationDelegate: LocationDelegate?
     var weatherData: WeatherData?
     
@@ -45,11 +45,11 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
             city = nil
         }
         
-        weatherController.fetchWeatherFromServer(for: city, zip: zip, country: nil) { (result) in
+        weatherController?.fetchWeatherFromServer(for: city, zip: zip, country: nil) { (result) in
             do {
                 let weather = try result.get()
                 self.weatherData = weather
-                self.weatherController.setDefaultLocation(cityId: weather.id)
+                self.locationDelegate?.locationWasUpdated(with: weather)
                 
                 DispatchQueue.main.async {
                     self.locationDelegate?.locationWasUpdated(with: weather)

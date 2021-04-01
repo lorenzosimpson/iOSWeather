@@ -7,9 +7,23 @@
 
 import UIKit
 
-class CurrentWeatherViewController: UIViewController, LocationDelegate {
+class CurrentWeatherViewController: UIViewController, LocationDelegate, ReloadDelegate {
     func locationWasUpdated<T>(with data: T) {
-        self.weatherData = data as? WeatherData
+        if let weatherData = data as? WeatherData {
+            defaultCity = weatherData.id
+            UserDefaults.standard.setValue(defaultCity, forKey: "city")
+            
+            DispatchQueue.main.async {
+                self.updateViews()
+                self.collectionView.reloadData()
+            }
+        }
+    }
+    
+    func reload() {
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
     }
   
     override func viewDidLoad() {
@@ -17,6 +31,8 @@ class CurrentWeatherViewController: UIViewController, LocationDelegate {
         // Do any additional setup after loading the view.
         navigationController?.setNavigationBarHidden(true, animated: false)
         createGradient()
+        collectionView.dataSource = self
+        weatherController.delegate = self
     }
     
     func createGradient() {
@@ -37,7 +53,7 @@ class CurrentWeatherViewController: UIViewController, LocationDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(getWeather), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
     
-    let defaultCity = UserDefaults.standard.value(forKey: "city")
+    var defaultCity = UserDefaults.standard.value(forKey: "city")
     
     @objc func getWeather() {
         if defaultCity == nil {
@@ -46,10 +62,10 @@ class CurrentWeatherViewController: UIViewController, LocationDelegate {
             weatherController.fetchWeatherById(cityId: defaultCity as! Int) { (result) in
                 do {
                     let weather = try result.get()
-                    self.weatherController.setDefaultLocation(cityId: weather.id)
                     DispatchQueue.main.async {
                         self.locationWasUpdated(with: weather)
                     }
+                    
                 } catch {
                     fatalError("Error getting weather for default location, \(error)")
                 }
@@ -61,26 +77,16 @@ class CurrentWeatherViewController: UIViewController, LocationDelegate {
         if segue.identifier == "ShowChooseCitySegue" {
             if let locationVC = segue.destination as? SearchViewController {
                 locationVC.locationDelegate = self
+                locationVC.weatherController = weatherController
             }
         }
-        if segue.identifier == "ForecastCollectionViewSegue" {
-            if let forecastVC = segue.destination as? ForecastCollectionViewController {
-                if defaultCity != nil {
-                forecastVC.cityId = defaultCity as? Int
-                forecastVC.weatherController = weatherController
-                }
-            }
-        }
+        
     }
-    
-    var weatherData: WeatherData? {
-        didSet {
-            updateViews()
-        }
-    }
+ 
+  
     
     func updateViews() {
-        if let weatherData = weatherData {
+        if let weatherData = weatherController.weather {
             cityLabel.text = weatherData.name
             countryLabel.text = Util().countryCodes[weatherData.sys.country]
             dateLabel.text = weatherController.formatTodayDate()
@@ -124,6 +130,28 @@ class CurrentWeatherViewController: UIViewController, LocationDelegate {
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var mainConditionLabel: UILabel!
     @IBOutlet weak var descLabel: UILabel!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     let weatherController = WeatherController()
 }
+
+extension CurrentWeatherViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return weatherController.forecast?.list.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? ForecastCollectionViewCell else {
+            NSLog("Wrong cell type")
+            return UICollectionViewCell()
+        }
+        
+        if let temp = weatherController.forecast?.list[indexPath.item].main.temp {
+            cell.forecastTempLabel.text = weatherController.convertTemp(temp: temp, from: .kelvin, to: .fahrenheit)
+        }
+        return cell
+    }
+    
+    
+}
+

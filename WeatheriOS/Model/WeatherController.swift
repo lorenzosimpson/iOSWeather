@@ -14,11 +14,19 @@ enum NetworkError: Error {
     case cityNotFound
 }
 
+protocol ReloadDelegate {
+    func reload()
+}
 
 class WeatherController {
     
+    var delegate: ReloadDelegate?
     var weather: WeatherData?
-    var forecast: ForecastData?
+    var forecast: ForecastData? {
+        didSet {
+            delegate?.reload()
+        }
+    }
     private var urlComponents = URLComponents(string: "https://api.openweathermap.org/data/2.5/weather")!
     private var urlComponentsForecast = URLComponents(string: "https://api.openweathermap.org/data/2.5/forecast")!
     
@@ -116,12 +124,13 @@ class WeatherController {
                 let decoder = JSONDecoder()
                 let cityWeather = try decoder.decode(WeatherData.self, from: data)
                 self.weather = cityWeather
+                print("got city weather")
                 self.fetchForecastFromServer(cityId: cityWeather.id) { (result) in
                     try! result.get()
-                    print("Got forecast for \(cityWeather.name)")
+                    print("got forecast")
                 }
                 completion(.success(cityWeather))
-                
+
             } catch {
                 print("Error decoding json, \(error)")
                 completion(.failure(.failedDecode))
@@ -161,9 +170,9 @@ class WeatherController {
                 let decoder = JSONDecoder()
                 let cityWeather = try decoder.decode(WeatherData.self, from: data)
                 self.weather = cityWeather
-                self.fetchForecastFromServer(cityId: cityId) { (result) in
+                self.fetchForecastFromServer(cityId: cityWeather.id) { (result) in
                     try! result.get()
-                    print("Got forecast for \(cityId)")
+                    print("got forecast")
                 }
                 completion(.success(cityWeather))
                 
@@ -201,9 +210,23 @@ class WeatherController {
         return mf.string(from: output)
     }
     
-    func setDefaultLocation(cityId: Int) {
-        let userDefaults = UserDefaults.standard
-        userDefaults.setValue(cityId, forKey: "city")
+    
+    func convertUnixToDate(with timestamp: Int) -> [String] {
+        let unixtimeInterval = Double(timestamp)
+        let date = Date(timeIntervalSince1970: unixtimeInterval)
+        let dateFormatterHr = DateFormatter()
+        dateFormatterHr.timeZone = TimeZone(abbreviation: "EST") //Set timezone that you want
+        dateFormatterHr.locale = NSLocale.current
+        dateFormatterHr.dateFormat = "HH:mm" //Specify your format that you want
+        
+        
+        let dateFormatterDay = DateFormatter()
+        dateFormatterDay.timeZone = TimeZone(abbreviation: "EST") //Set timezone that you want
+        dateFormatterDay.locale = NSLocale.current
+        dateFormatterDay.dateFormat = "MMM d" //Specify your format that you want
+        let strDateHr = dateFormatterHr.string(from: date)
+        let strDateDay = dateFormatterDay.string(from: date)
+        return [strDateHr, strDateDay]
     }
 
 }
