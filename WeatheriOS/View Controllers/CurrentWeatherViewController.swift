@@ -28,7 +28,11 @@ class CurrentWeatherViewController: UIViewController, LocationDelegate, ReloadDe
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        navigationController?.setNavigationBarHidden(true, animated: false)
+       // navigationController?.setNavigationBarHidden(true, animated: false)
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.view.backgroundColor = UIColor.clear
         createGradient()
         collectionView.dataSource = self
         weatherController.delegate = self
@@ -94,13 +98,14 @@ class CurrentWeatherViewController: UIViewController, LocationDelegate, ReloadDe
             cityLabel.text = weatherData.name
             countryLabel.text = Util().countryCodes[weatherData.sys.country]
             dateLabel.text = weatherController.formatTodayDate()
-            
+            let feelsLike = weatherController.convertTemp(temp: weatherData.main.feelsLike, from: .kelvin, to: .fahrenheit)
+            feelsLikeLabel.text = feelsLike
+           
             let temp = weatherData.main.temp
             temperatureLabel.text = weatherController.convertTemp(temp: temp, from: .kelvin, to: .fahrenheit)
             weatherImageView.image?.withRenderingMode(.alwaysTemplate)
             
             let weatherDescriptions = weatherData.weather[0].main.lowercased()
-            mainConditionLabel.text = weatherDescriptions.capitalized
             weatherImageView.tintColor = .white
             
             let desc = weatherData.weather[0].description.capitalized
@@ -109,6 +114,8 @@ class CurrentWeatherViewController: UIViewController, LocationDelegate, ReloadDe
     }
     
     
+   
+    @IBOutlet weak var feelsLikeLabel: UILabel!
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var countryLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!

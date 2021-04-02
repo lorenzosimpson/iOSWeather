@@ -21,9 +21,12 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
+        
+        searchBar.becomeFirstResponder()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        searchBar.resignFirstResponder()
         locationDelegate?.locationWasUpdated(with: weatherData)
     }
     
