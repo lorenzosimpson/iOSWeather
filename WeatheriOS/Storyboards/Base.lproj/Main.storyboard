@@ -129,24 +129,24 @@
                                                     <rect key="frame" x="0.0" y="30" width="120" height="98"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="u41-S7-9vB">
-                                                            <rect key="frame" x="35" y="0.5" width="50" height="97"/>
+                                                            <rect key="frame" x="35" y="0.0" width="50" height="98.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BN8-o4-3Oz">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="20.5"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="16"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hYy-6e-5HH">
-                                                                    <rect key="frame" x="0.0" y="21.5" width="50" height="60"/>
+                                                                    <rect key="frame" x="0.0" y="17" width="50" height="60"/>
                                                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="60" id="7Xz-C3-MxA"/>
                                                                     </constraints>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BTb-PP-JPc">
-                                                                    <rect key="frame" x="0.0" y="82.5" width="50" height="14.5"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                    <rect key="frame" x="0.0" y="78" width="50" height="20.5"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -187,9 +187,9 @@
                                         <size key="customSize" width="120" height="128"/>
                                         <connections>
                                             <outlet property="dateLabel" destination="TGD-X6-A7z" id="pRI-vJ-nGr"/>
-                                            <outlet property="forecastTempLabel" destination="BN8-o4-3Oz" id="L23-rT-Typ"/>
+                                            <outlet property="forecastTempLabel" destination="BTb-PP-JPc" id="ftH-oT-vAG"/>
                                             <outlet property="iconImageView" destination="hYy-6e-5HH" id="0Tx-Z5-cz3"/>
-                                            <outlet property="timeLabel" destination="BTb-PP-JPc" id="tLo-5K-T7H"/>
+                                            <outlet property="timeLabel" destination="BN8-o4-3Oz" id="zTI-ds-JJC"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>

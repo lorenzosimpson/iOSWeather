@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ED57533C261762F900A1C101 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED57533B261762F900A1C101 /* Cache.swift */; };
 		ED6BAF772610FA270098195C /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6BAF762610FA270098195C /* Util.swift */; };
 		ED6BAF7D261125AA0098195C /* cities.json in Resources */ = {isa = PBXBuildFile; fileRef = ED6BAF7C261125AA0098195C /* cities.json */; };
 		ED6BAF8126112B430098195C /* CityCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6BAF8026112B430098195C /* CityCode.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		ED57533B261762F900A1C101 /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = SOURCE_ROOT; };
 		ED6BAF762610FA270098195C /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Util.swift; path = WeatheriOS/Util.swift; sourceTree = SOURCE_ROOT; };
 		ED6BAF7C261125AA0098195C /* cities.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cities.json; sourceTree = "<group>"; };
 		ED6BAF8026112B430098195C /* CityCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityCode.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 		EDCFD038260FDBBA008DE9AD /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				ED57533B261762F900A1C101 /* Cache.swift */,
 				ED6BAF8026112B430098195C /* CityCode.swift */,
 				ED6BAF762610FA270098195C /* Util.swift */,
 				ED6BAF7C261125AA0098195C /* cities.json */,
@@ -215,6 +218,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED57533C261762F900A1C101 /* Cache.swift in Sources */,
 				EDCFCFFC260F75BC008DE9AD /* AppDelegate.swift in Sources */,
 				EDCFD002260F75D9008DE9AD /* CitiesCollectionViewController.swift in Sources */,
 				EDCFD005260F75E1008DE9AD /* City.swift in Sources */,

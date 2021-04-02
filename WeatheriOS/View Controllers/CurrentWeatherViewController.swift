@@ -117,6 +117,7 @@ class CurrentWeatherViewController: UIViewController, LocationDelegate, ReloadDe
     @IBOutlet weak var mainConditionLabel: UILabel!
     @IBOutlet weak var descLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
+    private let cache = Cache<String, Data>()
     
     let weatherController = WeatherController()
 }
@@ -139,9 +140,26 @@ extension CurrentWeatherViewController: UICollectionViewDataSource {
             cell.forecastTempLabel.text = weatherController.convertTemp(temp: temp, from: .kelvin, to: .fahrenheit)
            
                 DispatchQueue.global().async {
-                    let data = try? Data(contentsOf: URL(string: "https://openweathermap.org/img/wn/\(day.weather[0].icon)@4x.png")!)
-                DispatchQueue.main.async {
-                    cell.iconImageView.image = UIImage(data: data!)
+                    let icon = day.weather[0].icon
+                    // Implement icon caching so icons are only fetched once
+                    if let cachedImageData = self.cache.value(for: icon),
+                        let image = UIImage(data: cachedImageData) {
+                        DispatchQueue.main.async {
+                            cell.iconImageView.image = image
+                        }
+                        return
+                    }
+                    
+                    do {
+                    let data = try Data(contentsOf: URL(string: "https://openweathermap.org/img/wn/\(icon)@4x.png")!)
+                        print("made call for index \(indexPath.item)")
+                        self.cache.cache(value: data, for: icon)
+                        
+                        DispatchQueue.main.async {
+                            cell.iconImageView.image = UIImage(data: data)
+                        }
+                    } catch {
+                        NSLog("Error getting/caching icon, \(error)")
                     }
                 }
             
@@ -149,7 +167,6 @@ extension CurrentWeatherViewController: UICollectionViewDataSource {
             var prevDayWeek: String?
             let dateTime =  weatherController.convertUnixToDate(with: date, secondsFromGMT: city.timezone!)
             cell.dateLabel.text = ""
-            print(indexPath.item)
             if indexPath.item != 0 {
                 prevDay = weatherController.forecast?.list[indexPath.item - 1]
                 if prevDay != nil {

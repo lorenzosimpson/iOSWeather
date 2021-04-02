@@ -217,7 +217,7 @@ class WeatherController {
         let dateFormatterHr = DateFormatter()
         dateFormatterHr.timeZone = TimeZone(secondsFromGMT: secondsFromGMT) //Set timezone that you want
         dateFormatterHr.locale = NSLocale.current
-        dateFormatterHr.dateFormat = "HH" //Specify your format that you want
+        dateFormatterHr.dateFormat = "h a" //Specify your format that you want
         
         
         let dateFormatterDay = DateFormatter()
@@ -230,7 +230,6 @@ class WeatherController {
     }
     
     
-
 }
 
 extension WeatherController {
