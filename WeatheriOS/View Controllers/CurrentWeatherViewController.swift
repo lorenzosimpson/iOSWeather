@@ -159,7 +159,6 @@ extension CurrentWeatherViewController: UICollectionViewDataSource {
                     
                     do {
                     let data = try Data(contentsOf: URL(string: "https://openweathermap.org/img/wn/\(icon)@4x.png")!)
-                        print("made call for index \(indexPath.item)")
                         self.cache.cache(value: data, for: icon)
                         
                         DispatchQueue.main.async {

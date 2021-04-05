@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		ED57533C261762F900A1C101 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED57533B261762F900A1C101 /* Cache.swift */; };
+		ED57533F2619FB2000A1C101 /* ForecastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED57533E2619FB2000A1C101 /* ForecastViewController.swift */; };
 		ED6BAF772610FA270098195C /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6BAF762610FA270098195C /* Util.swift */; };
 		ED6BAF7D261125AA0098195C /* cities.json in Resources */ = {isa = PBXBuildFile; fileRef = ED6BAF7C261125AA0098195C /* cities.json */; };
 		ED6BAF8126112B430098195C /* CityCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6BAF8026112B430098195C /* CityCode.swift */; };
@@ -30,6 +31,7 @@
 
 /* Begin PBXFileReference section */
 		ED57533B261762F900A1C101 /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = SOURCE_ROOT; };
+		ED57533E2619FB2000A1C101 /* ForecastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ForecastViewController.swift; path = WeatheriOS/Storyboards/ForecastViewController.swift; sourceTree = SOURCE_ROOT; };
 		ED6BAF762610FA270098195C /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Util.swift; path = WeatheriOS/Util.swift; sourceTree = SOURCE_ROOT; };
 		ED6BAF7C261125AA0098195C /* cities.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cities.json; sourceTree = "<group>"; };
 		ED6BAF8026112B430098195C /* CityCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityCode.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 		EDCFD036260FDBAB008DE9AD /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				ED57533E2619FB2000A1C101 /* ForecastViewController.swift */,
 				EDCFD001260F75D9008DE9AD /* CitiesCollectionViewController.swift */,
 				EDCFCFE9260F7592008DE9AD /* SearchViewController.swift */,
 				EDCFD00A260F75EB008DE9AD /* CurrentWeatherViewController.swift */,
@@ -220,6 +223,7 @@
 			files = (
 				ED57533C261762F900A1C101 /* Cache.swift in Sources */,
 				EDCFCFFC260F75BC008DE9AD /* AppDelegate.swift in Sources */,
+				ED57533F2619FB2000A1C101 /* ForecastViewController.swift in Sources */,
 				EDCFD002260F75D9008DE9AD /* CitiesCollectionViewController.swift in Sources */,
 				EDCFD005260F75E1008DE9AD /* City.swift in Sources */,
 				EDCFCFEA260F7592008DE9AD /* SearchViewController.swift in Sources */,
