@@ -250,7 +250,7 @@
             </objects>
             <point key="canvasLocation" x="947.82608695652186" y="88.392857142857139"/>
         </scene>
-        <!--Search View Controller-->
+        <!--Search-->
         <scene sceneID="QI2-Oo-6hQ">
             <objects>
                 <viewController id="abn-cV-Pf2" customClass="SearchViewController" customModule="WeatheriOS" customModuleProvider="target" sceneMemberID="viewController">
@@ -258,30 +258,57 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search by city or zip" translatesAutoresizingMaskIntoConstraints="NO" id="frQ-gd-5kV">
-                                <rect key="frame" x="20" y="144" width="374" height="56"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose City" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jk2-wu-ygE">
-                                <rect key="frame" x="20" y="100" width="178" height="36"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="6ZJ-pS-M36">
+                                <rect key="frame" x="20" y="183" width="374" height="645"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dQa-ab-3az">
+                                    <size key="itemSize" width="150" height="150"/>
+                                    <size key="estimatedItemSize" width="150" height="150"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="5" minY="5" maxX="5" maxY="5"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" reuseIdentifier="CityCell" translatesAutoresizingMaskIntoConstraints="NO" id="wnA-ko-j7I" customClass="CityCollectionViewCell" customModule="WeatheriOS" customModuleProvider="target">
+                                        <rect key="frame" x="5" y="5" width="150" height="150"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="KNY-pb-frl">
+                                            <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="150" height="150"/>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CJa-yD-7Do">
+                                <rect key="frame" x="20" y="65" width="93" height="34"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search by city or zip" translatesAutoresizingMaskIntoConstraints="NO" id="frQ-gd-5kV">
+                                <rect key="frame" x="20" y="107" width="374" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Iyg-z0-Lg5"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="frQ-gd-5kV" firstAttribute="top" secondItem="CJa-yD-7Do" secondAttribute="bottom" constant="8" id="4Zc-bJ-SrV"/>
                             <constraint firstItem="Iyg-z0-Lg5" firstAttribute="trailing" secondItem="frQ-gd-5kV" secondAttribute="trailing" constant="20" id="9ox-Hl-WlX"/>
-                            <constraint firstItem="Iyg-z0-Lg5" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="Jk2-wu-ygE" secondAttribute="trailing" constant="216" id="CAb-Qb-XBD"/>
-                            <constraint firstItem="Jk2-wu-ygE" firstAttribute="leading" secondItem="Iyg-z0-Lg5" secondAttribute="leading" constant="20" id="PjA-Q6-dmC"/>
+                            <constraint firstItem="6ZJ-pS-M36" firstAttribute="bottom" secondItem="Iyg-z0-Lg5" secondAttribute="bottom" constant="20" id="Cst-wE-Tdh"/>
+                            <constraint firstItem="CJa-yD-7Do" firstAttribute="leading" secondItem="Iyg-z0-Lg5" secondAttribute="leading" constant="20" id="SeF-IZ-0ym"/>
                             <constraint firstItem="frQ-gd-5kV" firstAttribute="leading" secondItem="Iyg-z0-Lg5" secondAttribute="leading" constant="20" id="TIX-cF-umC"/>
-                            <constraint firstItem="Jk2-wu-ygE" firstAttribute="top" secondItem="Iyg-z0-Lg5" secondAttribute="top" constant="100" id="aTb-c6-naO"/>
-                            <constraint firstItem="frQ-gd-5kV" firstAttribute="top" secondItem="Jk2-wu-ygE" secondAttribute="bottom" constant="8" id="s2u-YF-Ujh"/>
+                            <constraint firstItem="Iyg-z0-Lg5" firstAttribute="trailing" secondItem="6ZJ-pS-M36" secondAttribute="trailing" constant="20" id="W1u-FJ-0aS"/>
+                            <constraint firstItem="Iyg-z0-Lg5" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="CJa-yD-7Do" secondAttribute="trailing" constant="301" id="bpJ-SQ-MHb"/>
+                            <constraint firstItem="6ZJ-pS-M36" firstAttribute="top" secondItem="frQ-gd-5kV" secondAttribute="bottom" constant="20" id="eXq-nP-ZRQ"/>
+                            <constraint firstItem="6ZJ-pS-M36" firstAttribute="leading" secondItem="Iyg-z0-Lg5" secondAttribute="leading" constant="20" id="xI6-Pa-6oF"/>
+                            <constraint firstItem="CJa-yD-7Do" firstAttribute="top" secondItem="Iyg-z0-Lg5" secondAttribute="top" constant="65" id="yXE-dL-x0S"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="JCP-82-rDU"/>
+                    <navigationItem key="navigationItem" title="Search" largeTitleDisplayMode="always" id="JCP-82-rDU"/>
                     <connections>
+                        <outlet property="collectionView" destination="6ZJ-pS-M36" id="q2s-RU-Grd"/>
                         <outlet property="searchBar" destination="frQ-gd-5kV" id="LHd-g0-crw"/>
                     </connections>
                 </viewController>

@@ -11,28 +11,35 @@ protocol LocationDelegate {
     func locationWasUpdated<T>(with data: T)
 }
 
-class SearchViewController: UIViewController, UISearchBarDelegate {
+class SearchViewController: UIViewController, UISearchBarDelegate, UICollectionViewDataSource {
+    
+    
+    @IBOutlet weak var collectionView: UICollectionView!
     
     var weatherController: WeatherController?
     var locationDelegate: LocationDelegate?
     var weatherData: WeatherData?
     
+    var favorites = [City(name: "San Francisco", id: 1, country: "US", timezone: nil),
+                     City(name: "New York", id: 1, country: "US", timezone: nil)]
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
-        
-        searchBar.becomeFirstResponder()
+        collectionView.dataSource = self
+        collectionView.delegate = self
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        searchBar.resignFirstResponder()
+       // searchBar.resignFirstResponder()
         locationDelegate?.locationWasUpdated(with: weatherData)
     }
     
     @IBOutlet weak var searchBar: UISearchBar!
     
 
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchTerm = searchBar.text,
               searchTerm != "" else { return }
@@ -89,6 +96,37 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
                 }
             }
         }
+    }
+}
+
+extension SearchViewController {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return favorites.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CityCollectionViewCell.reuseIdentifier, for: indexPath) as? CityCollectionViewCell else { return UICollectionViewCell() }
+        
+        cell.city = favorites[indexPath.item]
+        return cell
+    }
+}
+
+extension SearchViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let city = favorites[indexPath.item]
+        weatherController?.fetchWeatherFromServer(for: city.name, zip: nil, country: nil, completion: { (result) in
+            do {
+                let weather = try result.get()
+                self.weatherData = weather
+                DispatchQueue.main.async {
+                    self.locationDelegate?.locationWasUpdated(with: weather)
+                    self.dismiss(animated: true, completion: nil)
+                }
+            } catch {
+                print("Error choosing favorite locaiton")
+            }
+        })
     }
 }
 
