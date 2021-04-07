@@ -20,8 +20,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UICollectionV
     var locationDelegate: LocationDelegate?
     var weatherData: WeatherData?
     
-    var favorites = [City(name: "San Francisco", id: 1, country: "US", timezone: nil),
-                     City(name: "New York", id: 1, country: "US", timezone: nil)]
     
     
     override func viewDidLoad() {
@@ -32,7 +30,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UICollectionV
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-       // searchBar.resignFirstResponder()
         locationDelegate?.locationWasUpdated(with: weatherData)
     }
     
@@ -101,21 +98,21 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UICollectionV
 
 extension SearchViewController {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return favorites.count
+        return weatherController?.recents.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CityCollectionViewCell.reuseIdentifier, for: indexPath) as? CityCollectionViewCell else { return UICollectionViewCell() }
         
-        cell.city = favorites[indexPath.item]
+        cell.city = weatherController?.recents[indexPath.item]
         return cell
     }
 }
 
 extension SearchViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let city = favorites[indexPath.item]
-        weatherController?.fetchWeatherFromServer(for: city.name, zip: nil, country: nil, completion: { (result) in
+        guard let city = weatherController?.recents[indexPath.item] else { return }
+        weatherController?.fetchWeatherById(cityId: (city.id)!, completion: { (result) in
             do {
                 let weather = try result.get()
                 self.weatherData = weather

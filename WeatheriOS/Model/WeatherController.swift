@@ -22,6 +22,7 @@ class WeatherController {
     
     var delegate: ReloadDelegate?
     var weather: WeatherData?
+    var recents: [City] = []
     var forecast: ForecastData? {
         didSet {
             delegate?.reload()

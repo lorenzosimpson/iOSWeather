@@ -16,6 +16,11 @@ class CurrentWeatherViewController: UIViewController, LocationDelegate, ReloadDe
             DispatchQueue.main.async {
                 self.updateViews()
             }
+            for i in weatherController.recents {
+                // Make sure the recent isn't already there
+                if i.id == defaultCity as? Int { return }
+            }
+            weatherController.recents.insert(City(name: weatherData.name, id: defaultCity as? Int, country: weatherData.sys.country, timezone: nil), at: 0)
         }
     }
     
@@ -131,7 +136,7 @@ class CurrentWeatherViewController: UIViewController, LocationDelegate, ReloadDe
 
 extension CurrentWeatherViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 6
+        return 8
     }
     
     
